@@ -76,14 +76,12 @@ int main() {
 	while(!isEmpty(stack)) 
     {	
         node = Pop(stack);
+        visited[node] = 1;
         printf("%d ", node);
 
 		for(i=0; i<n_vertices; i++) // Push all the vertices which are connected to i
 			if(Cost[node][i] == 1 /*Are connected*/ && visited[i] == 0 /*Not visited*/)
-            {   
-                visited[node] = 1;
                 Push(stack, i);
-            }     
 	}
 
     return 0;
