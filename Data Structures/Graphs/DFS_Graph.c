@@ -3,7 +3,7 @@
 
 struct Stack { 
     int top; 
-    int capacity; 
+    int capacity;
     int* array; 
 };
 // Create Stack
@@ -69,9 +69,8 @@ int main() {
 	printf("Enter Starting Vertex:\n");
 	scanf("%d", &node);
 
-    visited[node] = 1;
     Push(stack, node);
-
+    visited[node] = 1;
 	
 	while(!isEmpty(stack)) 
     {	

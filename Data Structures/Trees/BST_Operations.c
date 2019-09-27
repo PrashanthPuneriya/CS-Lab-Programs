@@ -1,14 +1,14 @@
-//Program on BST Operations
+// Program on BST Operations
 #include<stdio.h>
 #include<stdlib.h>
-int flag=0;
+int flag=0; // For Searching
 struct node {
     int element;
     struct node *left;
     struct node *right;
 };
 
-//New Node Creation
+// New Node Creation
 struct node* NewNode(struct node *root, int element) {
     root = (struct node*)malloc(sizeof(struct node));
     root->element = element;
@@ -17,7 +17,7 @@ struct node* NewNode(struct node *root, int element) {
     return root;
 }
 
-//Insert
+// Insertion
 struct node* Insert(struct node *root, int element) {
     if(root == NULL) 
         root = NewNode(root, element);
@@ -30,51 +30,51 @@ struct node* Insert(struct node *root, int element) {
 
     return root;
 }
-//Searching
+// Searching
 void Search(struct node *root, int element) {
     if(root == NULL) return;
     if(root->element ==  element) flag = 1;
     else if(element < root->element) Search(root->left, element);
     else if(element > root->element) Search(root->right, element);
 }
-//Minimum Element of Right Subtree
+// Minimum Element of Right Subtree
 struct node* MinElement(struct node *root) {
-    while(root != NULL && root->left!= NULL) {
+    while(root != NULL && root->left != NULL) 
         root = root->left;
-    }
+
     return root;
 }
-//Delete
+// Deletion
 struct node* Delete(struct node *root, int element) {
-
-    //Tree is Empty
+    // Tree is Empty
     if(root == NULL) return root; 
 
-    //Tree is Not Empty then traverse the Tree till you found the element to be deleted recursively
+    // Tree is Not Empty then traverse the Tree till you found the element to be deleted recursively
     if(element < root->element) root->left = Delete(root->left, element);
 
     else if(element > root->element) root->right = Delete(root->right, element);
 
-    //If element is found
+    // If element is found
     else { 
-        if(root->left == NULL) { //Replace with Right Node
+        // If it doesn't consists any child nodes then, the first if statement returns NULL to its caller
+        if(root->left == NULL) { // Replace with Right Node and
             struct node *temp = root->right;
             free(root);
             return temp;
         }
-        else if(root->right == NULL) { //Replace with Left Node
+        else if(root->right == NULL) { // Replace with Left Node
             struct node *temp = root->left;
             free(root);
             return temp;
         }
-         //Both Nodes are Present then, Relace with Min of the Right Subtree
+        // Both Nodes are Present then, Replace with Min of the Right Subtree
             struct node *temp = MinElement(root->right);
             root->element = temp->element;
-            root->right = Delete(root->right, temp->element);
+            root->right = Delete(root->right, temp->element); // Do the same Deletion process recursively to the min of the Right Subtree
     }
     return root;
 }
-//Inorder Traversal
+// Inorder Traversal
 void Inorder(struct node *root) {
     if(root == NULL) return;
     Inorder(root->left);
@@ -96,7 +96,7 @@ int main() {
     if(flag) printf("Found\n");
     else printf("Not Found\n");
     printf("After Delete:\n");
-    root = Delete(root, 35);
+    root = Delete(root, 15);
     Inorder(root);
     return 0;
 }

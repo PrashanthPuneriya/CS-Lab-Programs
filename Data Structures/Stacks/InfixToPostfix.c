@@ -32,14 +32,20 @@ void Push(struct Stack* stack, char ch) {
 char Pop(struct Stack* stack) {
     if(stack->top > -1) 
         return stack->array[stack->top--];
-    return '#';
+    printf("Stack is empty i.e. Not enough operands or operators");
+    exit(1);
 }
 
+int isEmpty(struct Stack* stack) {
+    if(stack->top == -1)
+        return 1;
+    else return 0;
+}
 // Operand Checker
 int IsOperand(char c) {
     return (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z'); // Returns 1(True) if it is an operand
 }
-// Operator Prec
+// Operator Precedence
 int Prec(char symbol) {
 	if(symbol == '^') return 3;
 	else if(symbol == '*' || symbol == '/') return(2);
@@ -71,18 +77,18 @@ void InfixToPostfix(char *exp) {
                 x = Pop(stack);
 			} 
         }
-        // Character is an operand other than ( and ) then check the Prec and follow operations accordingly
+        // Character is an operator other than ( and ) then check the Prec and follow operations accordingly
         else {
-            while(stack->top > -1 && Prec(exp[i]) <= Prec(stack->array[stack->top]))
+            // If the inserting element precedence is lower than the top of the stack then pop
+            while(!isEmpty(stack) && Prec(exp[i]) <= Prec(stack->array[stack->top]))
                 exp[++j] = Pop(stack);
-
+            // else push it
             Push(stack, exp[i]);
         }
     }
     // If still any operators are present on the Stack then Pop it
-    while (stack->top > -1) {
+    while (!isEmpty(stack))
         exp[++j] = Pop(stack);
-    }
 
     exp[++j] = '\0';
     printf("Postfix Notation is :\n%s", exp); 

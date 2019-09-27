@@ -76,6 +76,7 @@ int main()
 	scanf("%d", &node);
 
     EnQueue(queue, node);
+	visited[node] = 1;
 	
 	while(!isEmpty(queue)) 
     {	

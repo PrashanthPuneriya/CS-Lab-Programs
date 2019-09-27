@@ -47,10 +47,10 @@ int PostfixEvaluation(char *exp) {
 
     for(int i=0; exp[i]; ++i) {
         
-        if(isdigit(exp[i]))
-            Push(stack, exp[i] - '0');
+        if(isdigit(exp[i])) // Encountered an operand
+            Push(stack, exp[i] - '0'); // - '0' converts a char into integer
 
-        else {
+        else { // Encountered an operator
             int val1, val2, res;
             val2 = Pop(stack);
             val1 = Pop(stack);
