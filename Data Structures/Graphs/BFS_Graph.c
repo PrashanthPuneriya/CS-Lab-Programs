@@ -81,12 +81,14 @@ int main()
 	while(!isEmpty(queue)) 
     {	
         node = DeQueue(queue);
-		visited[node] = 1;
         printf("%d ", node);
 
 		for(i=0; i<n_vertices; i++) // Enqueue all the vertices which are connected to i
-			if(Cost[node][i] == 1 /*Are connected*/ && visited[i] == 0 /*Not visited*/) 
+			if(Cost[node][i] == 1 /*Are connected*/ && visited[i] == 0 /*Not visited*/)
+			{
 				EnQueue(queue, i);
+				visited[node] = 1;
+			}
 	}
 
     return 0;
