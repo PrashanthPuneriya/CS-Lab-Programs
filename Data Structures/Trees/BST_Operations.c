@@ -2,102 +2,101 @@
 #include<stdio.h>
 #include<stdlib.h>
 int flag=0; // For Searching
-struct node {
-    int element;
-    struct node *left;
-    struct node *right;
+struct Node {
+    int data;
+    struct Node *left;
+    struct Node *right;
 };
 
 // New Node Creation
-struct node* NewNode(struct node *root, int element) {
-    root = (struct node*)malloc(sizeof(struct node));
-    root->element = element;
-    root->left = NULL;
-    root->right = NULL;
-    return root;
+struct Node* NewNode(struct Node *node, int data) {
+    node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
 }
 
 // Insertion
-struct node* Insert(struct node *root, int element) {
-    if(root == NULL) 
-        root = NewNode(root, element);
+struct Node* Insert(struct Node *node, int data) {
+    if(node == NULL) 
+        node = NewNode(node, data);
         
-    else if(element <= root->element)
-        root->left = Insert(root->left, element);
+    else if(data <= node->data)
+        node->left = Insert(node->left, data);
     
-    else if(element > root->element) 
-        root->right = Insert(root->right, element);
+    else if(data > node->data) 
+        node->right = Insert(node->right, data);
 
-    return root;
+    return node;
 }
 // Searching
-void Search(struct node *root, int element) {
-    if(root == NULL) return;
-    if(root->element ==  element) flag = 1;
-    else if(element < root->element) Search(root->left, element);
-    else if(element > root->element) Search(root->right, element);
+void Search(struct Node *node, int data) {
+    if(node == NULL) return;
+    if(node->data ==  data) flag = 1;
+    else if(data < node->data) Search(node->left, data);
+    else if(data > node->data) Search(node->right, data);
 }
 // Minimum Element of Right Subtree
-struct node* MinElement(struct node *root) {
-    while(root != NULL && root->left != NULL) 
-        root = root->left;
+struct Node* MinElement(struct Node *node) {
+    while(node != NULL && node->left != NULL) 
+        node = node->left;
 
-    return root;
+    return node;
 }
 // Deletion
-struct node* Delete(struct node *root, int element) {
+struct Node* Delete(struct Node *node, int data) {
     // Tree is Empty
-    if(root == NULL) return root; 
+    if(node == NULL) return node; 
 
     // Tree is Not Empty then traverse the Tree till you found the element to be deleted recursively
-    if(element < root->element) root->left = Delete(root->left, element);
+    if(data < node->data) node->left = Delete(node->left, data);
 
-    else if(element > root->element) root->right = Delete(root->right, element);
+    else if(data > node->data) node->right = Delete(node->right, data);
 
-    // If element is found
+    // If Element to be deleted is found
     else { 
-        // If it doesn't consists any child nodes then, the first if statement returns NULL to its caller
-        if(root->left == NULL) { // Replace with Right Node and
-            struct node *temp = root->right;
-            free(root);
+        if(node->left == NULL) { // Replace with Right Node and
+            struct Node *temp = node->right; 
+            free(node);
             return temp;
         }
-        else if(root->right == NULL) { // Replace with Left Node
-            struct node *temp = root->left;
-            free(root);
+        else if(node->right == NULL) { // Replace with Left Node
+            struct Node *temp = node->left;
+            free(node);
             return temp;
         }
-        // Both Nodes are Present then, Replace with Min of the Right Subtree
-            struct node *temp = MinElement(root->right);
-            root->element = temp->element;
-            root->right = Delete(root->right, temp->element); // Do the same Deletion process recursively to the min of the Right Subtree
+        // Both Nodes are Present then, Replace the Node with the Min of the Right Subtree and delete that Min
+            struct Node *temp = MinElement(node->right);
+            node->data = temp->data;
+            node->right = Delete(node->right, temp->data); // Do the same Deletion process recursively to the min of the Right Subtree
     }
-    return root;
+    return node;
 }
 // Inorder Traversal
-void Inorder(struct node *root) {
-    if(root == NULL) return;
-    Inorder(root->left);
-    printf("%d ", root->element);
-    Inorder(root->right);
+void Inorder(struct Node *node) {
+    if(node == NULL) return;
+    Inorder(node->left);
+    printf("%d ", node->data);
+    Inorder(node->right);
 }
 
 int main() {
-    struct node *root = NULL;
-    root = Insert(root,20);
-    root = Insert(root,30);
-    root = Insert(root,10);
-    root = Insert(root,15);
-    root = Insert(root,35);
+    struct Node *node = NULL;
+    node = Insert(node,20);
+    node = Insert(node,30);
+    node = Insert(node,10);
+    node = Insert(node,15);
+    node = Insert(node,35);
     printf("Inorder:\n");
-    Inorder(root);
+    Inorder(node);
     printf("\n");
-    Search(root, 35);
+    Search(node, 35);
     if(flag) printf("Found\n");
     else printf("Not Found\n");
     printf("After Delete:\n");
-    root = Delete(root, 15);
-    Inorder(root);
+    node = Delete(node, 15);
+    Inorder(node);
     return 0;
 }
 

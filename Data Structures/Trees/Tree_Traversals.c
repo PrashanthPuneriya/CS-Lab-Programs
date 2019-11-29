@@ -1,66 +1,66 @@
 //Program on Tree Traversals
 #include<stdio.h>
 #include<stdlib.h>
-struct node {
+struct Node {
     int data;
-    struct node *left;
-    struct node *right;
+    struct Node *left;
+    struct Node *right;
 };
 
-struct node* NewNode(struct node *root, int data) {
-    root = (struct node*)malloc(sizeof(struct node));
-    root->data = data;
-    root->left = NULL;
-    root->right = NULL;
-    return root;
+struct Node* NewNode(struct Node *node, int data) {
+    node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = data;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
 }
 
-struct node* Insertion(struct node *root, int data) {
-    if(root == NULL) 
-        root = NewNode(root, data);
+struct Node* Insertion(struct Node *node, int data) {
+    if(node == NULL) 
+        node = NewNode(node, data);
         
-    else if(data <= root->data)
-        root->left = Insertion(root->left, data);
+    else if(data <= node->data)
+        node->left = Insertion(node->left, data);
     
-    else if(data > root->data) 
-        root->right = Insertion(root->right, data);
+    else if(data > node->data) 
+        node->right = Insertion(node->right, data);
         
-    return root;
+    return node;
 }
 
-void Preorder(struct node *root) {
-    if(root == NULL) return;
-    printf("%d ", root->data);
-    Preorder(root->left);
-    Preorder(root->right);
+void Preorder(struct Node *node) {
+    if(node == NULL) return;
+    printf("%d ", node->data);
+    Preorder(node->left);
+    Preorder(node->right);
 }
-void Inorder(struct node *root) {
-    if(root == NULL) return;
-    Inorder(root->left);
-    printf("%d ", root->data);
-    Inorder(root->right);
+void Inorder(struct Node *node) {
+    if(node == NULL) return;
+    Inorder(node->left);
+    printf("%d ", node->data);
+    Inorder(node->right);
 }
-void Postorder(struct node *root) {
-    if(root == NULL) return;
-    Postorder(root->left);
-    Postorder(root->right);
-    printf("%d ", root->data);
+void Postorder(struct Node *node) {
+    if(node == NULL) return;
+    Postorder(node->left);
+    Postorder(node->right);
+    printf("%d ", node->data);
 }
 
 int main() {
-    struct node *root = NULL;
-    root = Insertion(root,20);
-    root = Insertion(root,30);
-    root = Insertion(root,10);
-    root = Insertion(root,15);
-    root = Insertion(root,35);
+    struct Node *node = NULL;
+    node = Insertion(node,20);
+    node = Insertion(node,30);
+    node = Insertion(node,10);
+    node = Insertion(node,15);
+    node = Insertion(node,35);
     printf("Preorder:\n");
-    Preorder(root);
+    Preorder(node);
     printf("\n");
     printf("Inorder:\n");
-    Inorder(root);
+    Inorder(node);
     printf("\n");
     printf("Postorder:\n");
-    Postorder(root);
+    Postorder(node);
     return 0;
 }

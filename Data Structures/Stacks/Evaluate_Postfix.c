@@ -5,7 +5,7 @@
 #include<ctype.h>
 
 struct Stack { 
-    int top; 
+    int top;
     int capacity; 
     int* array; 
 };
@@ -17,7 +17,7 @@ struct Stack* CreateStack(int capacity) {
 
     stack->top = -1; 
     stack->capacity = capacity; 
-    stack->array = (int*) malloc(stack->capacity * sizeof(int)); //Integer Array
+    stack->array = (int*)malloc(stack->capacity*sizeof(int)); //Integer Array
   
     if(!stack->array) // Array is not Created 
         return NULL;
@@ -26,15 +26,15 @@ struct Stack* CreateStack(int capacity) {
 }
 
 // Push to the Stack
-void Push(struct Stack* stack, char ch) {
+void Push(struct Stack* stack, int ch) {
     stack->array[++stack->top] = ch;
 }
 // Pop from the Stack
-char Pop(struct Stack* stack) {
+int Pop(struct Stack* stack) {
     if(stack->top > -1) 
         return stack->array[stack->top--];
     else {
-        printf("Stack is empty i.e. Not enough operands or operators");
+        printf("Stack is empty i.e. Not enough Operands or Operators");
         exit(1);
     }
 }
@@ -51,15 +51,15 @@ int PostfixEvaluation(char *exp) {
             Push(stack, exp[i] - '0'); // - '0' converts a char into integer
 
         else { // Encountered an operator
-            int val1, val2, res;
+            int val1, val2;
             val2 = Pop(stack);
             val1 = Pop(stack);
             switch (exp[i])  
             {  
-            case '+': Push(stack, val1 + val2); break;  
-            case '-': Push(stack, val1 - val2); break;  
-            case '*': Push(stack, val1 * val2); break;  
-            case '/': Push(stack, val1/val2); break;  
+                case '+': Push(stack, val1 + val2); break;  
+                case '-': Push(stack, val1 - val2); break;  
+                case '*': Push(stack, val1 * val2); break;  
+                case '/': Push(stack, val1/val2); break;  
             }   
         } 
     }

@@ -3,7 +3,7 @@
 
 struct Stack { 
     int top; 
-    int capacity;
+    int capacity; 
     int* array; 
 };
 // Create Stack
@@ -69,8 +69,9 @@ int main() {
 	printf("Enter Starting Vertex:\n");
 	scanf("%d", &node);
 
-    Push(stack, node);
     visited[node] = 1;
+    Push(stack, node);
+
 	
 	while(!isEmpty(stack)) 
     {	
@@ -79,11 +80,10 @@ int main() {
 
 		for(i=0; i<n_vertices; i++) // Push all the vertices which are connected to i
 			if(Cost[node][i] == 1 /*Are connected*/ && visited[i] == 0 /*Not visited*/)
-            {
-                Push(stack, i);
+            {   
                 visited[node] = 1;
-            }
-
+                Push(stack, i);
+            }     
 	}
 
     return 0;
