@@ -16,7 +16,7 @@ void Merge(int arr[], int left, int mid, int right) {
     j = 0;
     k = left;
 
-    while(i < n1 || j < n2) {
+    while(i < n1 && j < n2) {
         if(i < n1 && L[i] <= R[j]) {   // compare L and R array elements(sorted) and then push it into arr array. This makes arr sorted.
             arr[k] = L[i]; // Push the L array elements(sorted)
             i++;
@@ -27,6 +27,20 @@ void Merge(int arr[], int left, int mid, int right) {
         }
         k++;
     }
+    
+    while (i < n1) // Copy the remaining elements of L[], if there are any
+    { 
+        arr[k] = L[i]; 
+        i++; 
+        k++; 
+    } 
+
+    while (j < n2) // Copy the remaining elements of R[], if there are any
+    { 
+        arr[k] = R[j]; 
+        j++; 
+        k++; 
+    } 
 }
 
 void MergeSort(int arr[], int left, int right) {
