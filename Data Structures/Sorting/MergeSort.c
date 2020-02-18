@@ -18,11 +18,11 @@ void Merge(int arr[], int left, int mid, int right) {
 
     while(i < n1 || j < n2) {
         if(i < n1 && L[i] <= R[j]) {   // compare L and R array elements(sorted) and then push it into arr array. This makes arr sorted.
-            arr[k] = L[i]; // Push the L array elements(sorted) until its get empty
+            arr[k] = L[i]; // Push the L array elements(sorted)
             i++;
         }
         else {
-            arr[k] = R[j];  // Push the remaining R array elements(sorted) into the arr array
+            arr[k] = R[j];  // Push the R array elements(sorted)
             j++;
         }
         k++;
