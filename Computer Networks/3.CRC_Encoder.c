@@ -34,27 +34,19 @@ void divider()
 
     char encodedInp[inpLen]; // encodedInp = inp + last3BitsOfInp
     for (int i = 0; i < inpLen; ++i)
-    {
         encodedInp[i] = inp[i];
-    }
     encodedInp[inpLen] = '\0';
 
     for (int i = 0; i < inpLen - keyLen + 1;)
     {
         // perform XOR for every bit
         for (int j = 0; j < keyLen; ++j)
-        {   
-            // printf("Performing xor of %c ^ %c\n", inp[i+j], key[j]);
             inp[i + j] = (inp[i + j] == key[j] ? '0' : '1');
-        }
 
         // Find the index i such that MSB=1 i.e. skipping all 0's.
         // Since, there is no need of performing division when MSB of inp is 0
         while (i < inpLen && inp[i] == '0')
-        {
-            // printf("%s the char at i=%d is %c hence skipping\n", inp, i, inp[i]);
             ++i;
-        }
     }
 
     for (int i = inpLen - keyLen + 1; i < inpLen; ++i)
