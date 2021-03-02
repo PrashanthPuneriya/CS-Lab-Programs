@@ -14,14 +14,13 @@ void printFrame(int frame[], int n) {
 }
 
 int predict(int frame[], int frameSize, int ref_page[], int noOfPages, int index) {
-	if(index < frameSize) {
-        // find 1st empty frame[i]
-        for(int i=0; i<frameSize; ++i)
-            if(frame[i] == -1)
-                return i;
-    }
+	
+	// if pageFault has occured and frame is not yet filled then, find 1st empty frame[i]
+	for(int i=0; i<frameSize; ++i)
+		if(frame[i] == -1)
+			return i;
     
-    int res = -1, farthest = index;
+    	int res = -1, farthest = index;
 	for(int i = 0; i < frameSize; i++) {
 		int j;
 		for(j = index; j >= 0; j--) {
